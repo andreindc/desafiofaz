@@ -24,6 +24,6 @@ O objetivo desse teste é que você mostre suas habilidades de codificação e o
 - Disponibilizar a aplicação em serviço de hospedagem online (Heroku, AWS, Digital
 Ocean, etc).
 - Uso de EJBs para controle transacional.
-- Uso de servidor de aplicação Wildfly ou OpenLiberty, o Disponibilizar a configuração do servidor de aplicação no repositório Git online (*Disponível na pasta ws-project/Wildfly.pdf*)
+- Uso de servidor de aplicação Wildfly ou OpenLiberty, o Disponibilizar a configuração do servidor de aplicação no repositório Git online (*Wildfly.pdf*)
 junto com o código fonte.
 - Testes unitários com jUnit.
