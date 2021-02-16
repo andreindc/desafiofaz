@@ -1,0 +1,5 @@
+package com.desafiofaz.dao;
+
+public class ClienteDao {
+
+}

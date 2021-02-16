@@ -1,0 +1,122 @@
+package com.desafiofaz.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.PrimeFaces;
+
+import javax.faces.bean.SessionScoped;
+
+import com.desafiofaz.dao.UsuarioDao;
+import com.desafiofaz.model.Usuario;
+
+@ManagedBean (name="usuarioBean")
+@SessionScoped
+public class UsuarioBean {
+	public String nome;
+	public String senha;
+	public String msg;
+		
+	
+	public UsuarioBean() {
+		super();
+		
+	}
+
+	
+	public String getMsg() {
+		return msg;
+	}
+
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+
+
+	public String login() {		
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		Usuario usuario = new Usuario();
+		usuario= usuarioDAO.login(nome, senha);
+	    if (usuario == null) {	      
+		  FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", " Usuário não encontrado!");	        
+	      PrimeFaces.current().dialog().showMessageDynamic(message);
+	      return null;
+	    } else {
+	          return "/faces/listarUsuario.xhtml";
+	    }
+	    
+	}
+	
+	public String nuevo() {
+		Usuario usuario = new Usuario();
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put("usuario", usuario);
+		return  "/faces/nuevoUsuario.xhtml";
+	}
+	
+	public String guardar (Usuario usuario) {		
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		usuarioDAO.guardar(usuario);
+		
+		return  "/faces/listarUsuario.xhtml";
+	}
+	
+	
+	public List<Usuario> ObtenerUsuario(){
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		return usuarioDAO.Listar();
+		
+	}
+	
+	public String EditarUsuario(int id) {
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		Usuario usuario = new Usuario();
+		usuario = usuarioDAO.buscar(id);
+		System.out.println(usuario.toString());
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put("usuario", usuario);
+		return "/faces/editarUsuario.xhtml";
+	}
+	
+	
+		
+	public String actualizar(Usuario ususario) {
+		UsuarioDao usuarioDAO = new UsuarioDao();	
+		usuarioDAO.editar(ususario);
+		return  "/faces/listarUsuario.xhtml";
+	}
+	
+	public String eliminar(int id) {
+		UsuarioDao usuarioDAO = new UsuarioDao();	
+		usuarioDAO.eliminar(id);
+		System.out.println("Usuario eliminado.."+ id);
+		return "/faces/listarUsuario.xhtml";
+	}
+
+}

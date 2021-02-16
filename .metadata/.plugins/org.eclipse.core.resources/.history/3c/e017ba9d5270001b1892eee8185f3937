@@ -1,0 +1,101 @@
+package com.desafiofaz.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import com.desafiofaz.model.JPAUtil;
+import com.desafiofaz.model.Usuario;
+
+public class UsuarioDao {
+
+	EntityManager entity = JPAUtil.getEntityManagerFactory().createEntityManager();
+
+	public Usuario login(String email, String senha) {
+		Usuario usuario = null;
+		try {
+			Query query = entity
+					.createQuery("SELECT u FROM Usuario u WHERE u.email = ?1 AND u.senha = ?2", Usuario.class)
+					.setParameter(1, email).setParameter(2, senha);
+			List<Usuario> listaUsuario = query.getResultList();
+			if (!listaUsuario.isEmpty()) {
+				usuario = listaUsuario.get(0);
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			entity.close();
+		}
+		return usuario;
+	}
+
+	public void guardar(Usuario usuario) {
+		try {
+			entity.getTransaction().begin();
+			entity.persist(usuario);
+			entity.getTransaction().commit();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			entity.close();
+		}
+
+	}
+
+	public void editar(Usuario usuario) {
+		try {
+			entity.getTransaction().begin();
+			entity.merge(usuario);
+			entity.getTransaction().commit();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			entity.close();
+		}
+
+	}
+
+	public Usuario buscar(int id) {
+		Usuario usuario = new Usuario();
+		try {
+			usuario = entity.find(Usuario.class, id);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			entity.close();
+		}
+		return usuario;
+	}
+
+	public void eliminar(int id) {
+		Usuario usuario = new Usuario();
+		try {
+			usuario = entity.find(Usuario.class, id);
+			entity.getTransaction().begin();
+			entity.remove(usuario);
+			entity.getTransaction().commit();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			entity.close();
+		}
+
+	}
+
+	public List<Usuario> listar() {
+		List<Usuario> listaUsuario = new ArrayList<>();
+		try {
+			Query query = entity.createQuery("from Usuario", Usuario.class);
+			listaUsuario = query.getResultList();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			entity.close();
+		}
+		return listaUsuario;
+
+	}
+
+}

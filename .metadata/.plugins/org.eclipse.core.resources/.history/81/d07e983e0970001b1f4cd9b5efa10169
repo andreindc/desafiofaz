@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<f:facet name="first">
+		<meta charset="utf-8" name="viewport"
+			content="width=device-width, initial-scale=1"
+			http-equiv="X-UA-Conpatible" />
+		<title>Login</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script type="text/javascript">
+    //<![CDATA[
+    /**
+     * Faces Validator
+     */
+    PrimeFaces.validator['custom.emailValidator'] = {
+
+        pattern: /\S+@\S+/,
+
+        validate: function (element, value) {
+            //use element.data() to access validation metadata, in this case there is none.
+            if (!this.pattern.test(value)) {
+                throw {
+                    summary: 'Validation Error',
+                    detail: value + ' is not a valid email.'
+                }
+            }
+        }
+    };
+
+    /**
+     * Bean validator
+     */
+    PrimeFaces.validator['Email'] = {
+
+        pattern: /\S+@\S+/,
+
+        MESSAGE_ID: 'org.primefaces.examples.validate.email.message',
+
+        validate: function (element, value) {
+            var vc = PrimeFaces.validation.ValidationContext;
+
+            if (!this.pattern.test(value)) {
+                var msgStr = element.data('p-email-msg'),
+                    msg = msgStr ? {summary: msgStr, detail: msgStr} : vc.getMessage(this.MESSAGE_ID);
+
+                throw msg;
+            }
+        }
+    };
+    //]]>
+</script>
+	</f:facet>
+</h:head>
+<h:body>
+	<div id="page">
+		<header>
+			<img
+				src="https://www.sefaz.pe.gov.br/_catalogs/masterpage/master2013/images/logomarca.png"
+				alt="Secretaria da Fazenda" />
+		</header>
+		<section>
+			<div class="card p-shadow-24">
+				<div class="ui-fluid">
+					<h2>Incluir Usuário</h2>
+					<h:form>
+						<p:outputLabel value="Nome" />
+						<p:inputText value="#{usuario.nome}" required="true"></p:inputText>
+						<p:outputLabel value="Email" />
+						<p:inputText value="#{usuario.email}" required="true"></p:inputText>
+						<p:outputLabel value="Sennha" />
+						<p:inputText value="#{usuario.senha}"></p:inputText>
+						<p:outputLabel value="Telefone" />
+						<p:inputText value="#{usuario.telefone}"></p:inputText>
+
+						<p:commandButton action="#{usuarioBean.guardar(usuario)}"
+							value="Guardar"></p:commandButton>
+					</h:form>
+				</div>
+			</div>
+		</section>
+		<footer>
+			<div>
+				<h3>Desenvolvedor: Andreina Díaz - andreinadc@gmail.com</h3>
+			</div>
+		</footer>
+	</div>
+
+</h:body>
+</html>

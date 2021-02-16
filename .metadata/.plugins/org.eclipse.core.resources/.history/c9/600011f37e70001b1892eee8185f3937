@@ -1,0 +1,111 @@
+package com.desafiofaz.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.PrimeFaces;
+
+import javax.faces.bean.SessionScoped;
+
+import com.desafiofaz.dao.UsuarioDao;
+import com.desafiofaz.model.Usuario;
+
+@ManagedBean(name = "usuarioBean")
+@SessionScoped
+public class UsuarioBean {
+	public String email;
+	public String senha;
+	private int idUsuarioLogin;
+
+	public UsuarioBean() {
+		super();
+
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String login() {
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		Usuario usuario = new Usuario();
+		usuario = usuarioDAO.login(email, senha);
+		if (usuario == null) {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção", " Usuário não encontrado!");
+			PrimeFaces.current().dialog().showMessageDynamic(message);
+			return null;
+		} else {
+			Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+			sessionMap.put("usuarioLogin", usuario);
+			System.out.println(usuario);
+			return "/faces/listarUsuario.xhtml";
+		}
+
+	}
+
+	public String nuevo() {
+		Usuario usuario = new Usuario();
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put("usuario", usuario);
+		return "/faces/nuevoUsuario.xhtml";
+	}
+
+	public String guardar(Usuario usuario) {
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		usuarioDAO.guardar(usuario);
+		return "/faces/listarUsuario.xhtml";
+	}
+
+	public List<Usuario> ObtenerUsuario() {
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		return usuarioDAO.Listar();
+	}
+
+	public String editarUsuario(int id) {
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		Usuario usuario = new Usuario();
+		usuario = usuarioDAO.buscar(id);
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put("usuario", usuario);
+		return "/faces/editarUsuario.xhtml";
+	}
+
+	public String actualizar(Usuario usuario) {
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		usuarioDAO.editar(usuario);
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put("usuarioLogin", usuario);
+		return "/faces/listarUsuario.xhtml";
+	}
+
+	public String eliminar(int id) {
+		UsuarioDao usuarioDAO = new UsuarioDao();
+		if (id == this.idUsuarioLogin) {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção", " Não é possível deletar o usuário logado!");
+			PrimeFaces.current().dialog().showMessageDynamic(message);
+		} else {
+			usuarioDAO.eliminar(id);
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Atenção",
+					"Usuário excluído com sucesso!");
+			PrimeFaces.current().dialog().showMessageDynamic(message);
+		}
+		return "/faces/listarUsuario.xhtml";
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.desafiofaz.model;
+
+public class JPAUtil {
+
+}

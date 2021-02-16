@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<f:facet name="first">
+		<meta charset="utf-8" name="viewport"
+			content="width=device-width, initial-scale=1"
+			http-equiv="X-UA-Conpatible" />
+		<title>Login</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript">
+                    function doAjax(url){
+                        $('#contenido').load(url);
+                    }
+        </script>
+
+	</f:facet>
+</h:head>
+<h:body>
+	<div id="page">
+		<header>
+			<img
+				src="https://www.sefaz.pe.gov.br/_catalogs/masterpage/master2013/images/logomarca.png"
+				alt="Secretaria da Fazenda" />
+			<ul>
+				<li><a href="#" onclick="doAjax('nuevaSolicitud.xhtml');">Nueva
+						Solicitud</a></li>
+				<li><a href="#" onclick="doAjax('consultaSolicitud.xhtml');">Consultas</a></li>
+
+			</ul>
+		</header>
+		<section>
+			<div class="card p-shadow-24">
+				<div class="ui-fluid">
+					<h2>Alterar Usuário</h2>
+					<h:form>
+						<p:outputLabel value="Nome" />
+						<p:inputText value="#{usuario.nome}"></p:inputText>
+						<p:outputLabel value="Email" />
+						<p:inputText value="#{usuario.email}"></p:inputText>
+						<p:outputLabel value="Sennha" />
+						<p:inputText value="#{usuario.senha}"></p:inputText>
+						<p:outputLabel value="Telefone" />
+						<p:inputText value="#{usuario.telefone}"></p:inputText>
+						<p:commandButton action="#{usuarioBean.actualizar(usuario)}"
+							value="Actualizar"></p:commandButton>
+					</h:form>
+				</div>
+			</div>
+		</section>
+		<footer>
+			<div>
+				<h3>Desenvolvedor: Andreina Díaz - andreinadc@gmail.com</h3>
+			</div>
+		</footer>
+	</div>
+
+</h:body>
+</html>

@@ -1,0 +1,83 @@
+
+	
+.ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell,
+	h2, h3, .botom {
+	text-align: center;
+}
+
+td .button{
+	padding: 0 2px 0 2px 0;
+}
+
+.customPanelGrid .ui-panelgrid-content {
+	align-items: center;
+}
+
+.card {
+	height: 240px;
+	margin: auto;
+	width: 280px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+	box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px
+		rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+	padding: 40px;
+}
+
+.table{
+	padding: 0 5% 0 5%;	
+}
+
+body {
+	font: sans-serif;
+	margin: 0;
+	padding: 60px 0 0 0;
+	font-size: 90%;
+}
+
+button.ui-button {
+	margin: 15px 2px 0 2px;
+}
+
+.td-id{
+	width:50px;
+}
+
+.user{  
+	text-align: right;
+	
+}
+
+#page {
+	margin: 0px auto;
+	width: 100%;
+}
+
+header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding: 15px 20px;
+	background-color: #ccecfb;
+	font-size: 20px;
+	color: #00599b;
+}
+
+section {
+	height: 65%;
+	overflow: auto;
+	padding: 0% 1% 0% 1%;
+	width: 98%;
+	padding-top: 10%;
+}
+
+footer {
+	background: #00599b;
+	padding:5px 0 2px 0;
+	color:#fff;
+	position: fixed;
+	bottom:0px;
+	width: 100%;
+}

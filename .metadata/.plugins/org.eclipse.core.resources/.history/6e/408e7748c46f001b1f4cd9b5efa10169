@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<title>Editar Usuario</title>
+</h:head>
+<h:body>
+
+	<div class="card p-shadow-24">
+		<div class="ui-fluid">
+			<center>
+				<h2>Incluir Usuário</h2>
+			</center>
+			<h:form>
+				<p:outputLabel value="Nome" />
+				<p:inputText value="#{usuario.nome}"></p:inputText>
+				<p:outputLabel value="Email" />
+				<p:inputText value="#{usuario.email}"></p:inputText>
+				<p:outputLabel value="Sennha" />
+				<p:inputText value="#{usuario.senha}"></p:inputText>
+				<p:outputLabel value="Telefone" />
+				<p:inputText value="#{usuario.telefone}"></p:inputText>
+				<p:commandButton action="#{usuarioBean.guardar(usuario)}" 
+					value="Guardar"></p:commandButton>
+			</h:form>
+		</div>
+	</div>
+
+</h:body>
+</html>

@@ -1,0 +1,84 @@
+package com.desafiofaz.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import com.desafiofaz.model.JPAUtil;
+import com.desafiofaz.model.Usuario;
+
+public class UsuarioDao {
+	
+	EntityManager entity = JPAUtil.getEntityManagerFactory().createEntityManager();
+	
+	//Login
+	public Usuario login(String email, String senha) {
+		Usuario usuario= null;
+		try {
+			Query query = entity.createQuery("SELECT u FROM Usuario u WHERE u.email = ?1 AND u.senha = ?2", Usuario.class)
+					.setParameter(1, email)
+					.setParameter(2, senha);
+			List<Usuario> listaUsuario =  query.getResultList();
+			if(!listaUsuario.isEmpty()) {
+				usuario = listaUsuario.get(0);
+			}
+		}catch(Exception e) {
+			throw e;
+		}
+		finally {
+			entity.close();
+		}	
+		return usuario;	      
+	}
+	
+	//Guardar usuarios
+	public void guardar(Usuario usuario) {
+		entity.getTransaction().begin();
+		entity.persist(usuario);
+		entity.getTransaction().commit();
+	//	JPAUtil.shutdown();
+	}
+	
+	//editar usuario
+	public void editar(Usuario usuario) {
+		entity.getTransaction().begin();
+		entity.merge(usuario);
+		entity.getTransaction().commit();
+		//JPAUtil.shutdown();
+	}
+	
+	//buscar usuario
+	public Usuario buscar(int id) {
+		Usuario usuario= new Usuario();
+		usuario = entity.find(Usuario.class, id);
+		//JPAUtil.shutdown();
+		return usuario;
+	}
+	
+	/// eliminar cliente
+	public void eliminar(int id) {
+		Usuario usuario= new Usuario();
+		usuario = entity.find(Usuario.class, id);
+		entity.getTransaction().begin();
+		entity.remove(usuario);
+		entity.getTransaction().commit();	
+
+	}
+	
+	//listar usuario
+	public List<Usuario> Listar(){
+		List<Usuario> listaUsuario = new ArrayList<>();
+		Query query = entity.createQuery("from Usuario", Usuario.class);
+		listaUsuario= query.getResultList();		
+		for(Usuario l:listaUsuario) {
+			System.out.print(l.toString());
+		}
+		return listaUsuario;		
+	}
+	
+	
+	
+
+}

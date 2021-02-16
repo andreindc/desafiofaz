@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<title>Editar Usuario</title>
+	
+	<style type="text/css">
+.ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell
+	{
+	text-align: center;
+}
+
+.customPanelGrid .ui-panelgrid-content {
+	align-items: center;
+}
+
+.card {
+	height: 300px;
+	margin: auto;
+	position: absolute;
+	top: 30%;
+	left: 60%;
+	width: 300px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+	box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px
+		rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+	padding: 40px;
+}
+
+body {
+	background-image:
+		url("http://itectehuacan.edu.mx/TutoriasFinalSistema/Imagenes/backgrounds/1.jpg");
+	background-color: #ccecfb;
+	font: sans-serif;
+}
+
+button.ui-button {
+	margin-top: 20px;
+}
+
+.p-shadow- {level
+	
+}
+</style>
+</h:head>
+<h:body>
+
+	<div class="card p-shadow-24">
+		<div class="ui-fluid">
+			<center>
+				<h2>Editar Usuário</h2>
+			</center>
+			<h:form>
+				<p:outputLabel value="Nome" />
+				<p:inputText value="#{usuario.nome}"></p:inputText>
+				<p:outputLabel value="Email" />
+					<p:password id="senha" value="#{usuarioBean.senha}" />
+				<p:outputLabel value="Sennha" />
+				<p:inputText value="#{usuario.senha}"></p:inputText>
+				<p:outputLabel value="Telefone" />
+				<p:inputText value="#{usuario.telefone}"></p:inputText>
+				<p:commandButton action="#{usuarioBean.actualizar(usuario)}" value="Actualizar"></p:commandButton>
+			</h:form>
+		</div>
+	</div>
+
+</h:body>
+</html>

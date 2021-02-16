@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<title>Login</title>
+
+</h:head>
+<h:body>
+	
+
+<div id="page">
+		<header>
+			<img
+				src="https://www.sefaz.pe.gov.br/_catalogs/masterpage/master2013/images/logomarca.png"
+				alt="Secretaria da Fazenda" />
+		</header>
+		<section>
+			<h2>
+		<h:outputText value="Consultar Usuários (Lista todos)"></h:outputText>
+	</h2>
+
+	<h:form>
+    <div>
+        <p:dataTable value="#{usuarioBean.ObtenerUsuario()}" var="usuario">
+            <p:column headerText="id">
+                <h:outputText value="#{usuario.id}"/>
+            </p:column>
+
+            <p:column headerText="Nome">
+                <h:outputText value="#{usuario.nome}"/>
+            </p:column>
+
+            <p:column headerText="Email">
+                <h:outputText value="#{usuario.email}"/>
+            </p:column>
+
+            <p:column headerText="Senha">
+                <h:outputText value="#{usuario.senha}"/>
+            </p:column>
+            
+             <p:column headerText="Telefone">
+                <h:outputText value="#{usuario.telefone}"/>
+            </p:column>
+
+            <p:column headerText="Editar">
+                <p:commandButton action="#{usuarioBean.EditarUsuario(usuario.id)}" value="Editar"></p:commandButton>
+            </p:column>
+
+            <p:column headerText="Eliminar">
+                <p:commandButton action="#{usuarioBean.eliminar(usuario.id)}" value="Eliminar"></p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </div>
+    <p:commandButton action="#{usuarioBean.nuevo()}" value="Nuevo Usuario"></p:commandButton>
+</h:form>
+		</section>
+		<footer>
+			<div>
+				<h3>Desenvolvedor: Andreina Díaz - andreinadc@gmail.com</h3>
+			</div>
+		</footer>
+	</div>
+	
+	
+</h:body>
+</html>

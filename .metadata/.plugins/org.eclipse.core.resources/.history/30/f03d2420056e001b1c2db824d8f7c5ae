@@ -1,0 +1,35 @@
+package com.desafiofaz.dao;
+
+import javax.persistence.EntityManager;
+
+import com.desafiofaz.model.JPAUtil;
+import com.desafiofaz.model.Usuario;
+
+public class UsuarioDao {
+	
+	EntityManager entity = JPAUtil.getEntityManagerFactory().createEntityManager();
+	
+	//Guardar usuarios
+	public void guardar(Usuario usuario) {
+		entity.getTransaction().begin();
+		entity.persist(usuario);
+		entity.getTransaction().commit();
+		JPAUtil.shutdown();
+	}
+	
+	//editar usuario
+	public void editar(Usuario usuario) {
+		entity.getTransaction().begin();
+		entity.merge(usuario);
+		entity.getTransaction().commit();
+		JPAUtil.shutdown();
+	}
+	
+	//buscar usuario
+	public Usuario buscar(int id) {
+		Usuario usuario= new Usuario();
+		usuario = entity.find(Usuario.class, id);
+	}
+	
+
+}
